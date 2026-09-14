@@ -413,8 +413,34 @@ Remote MCP Connector:
 - [`edit_emoji`](): Edit an existing emoji's name or role restrictions
 - [`delete_emoji`](): Permanently delete a custom emoji from the server
 
+#### Multi-Bot & Multi-Server Fleet Management
+- [`list_bots`](): List all registered Discord bots, their aliases, online statuses, IDs, and connected server counts
+- [`add_bot`](): Connect and add a new Discord bot to the running MCP instance on the fly using its token (zero restart)
+- [`remove_bot`](): Disconnect and unregister a Discord bot by its alias
+- [`list_servers`](): List all Discord servers (Guilds) across all bots (with name, ID, member count, managing bot)
+- [`set_default_bot`](): Change the default bot alias for operations where no specific bot is designated
+- [`send_message_as_bot`](): Send a message to a channel specifically using a designated bot alias
+
 >If `DISCORD_GUILD_ID` is set, the `guildId` parameter becomes optional for all tools above.
+>Smart Routing automatically routes requests to the bot managing the targeted guild or channel!
+
+---
+
+## 🔄 Upstream Synchronization
+
+This fork tracks the upstream repository [`SaseQ/discord-mcp`](https://github.com/SaseQ/discord-mcp).
+To pull and merge the latest features and bugfixes from upstream:
+
+```bash
+./sync-upstream.sh
+```
+
+Or using GitHub CLI directly:
+```bash
+gh repo sync 0xOpCode/discord-mcp --source SaseQ/discord-mcp
+```
 
 <hr>
 
 A more detailed examples can be found in the [Wiki](https://github.com/SaseQ/discord-mcp/wiki).
+

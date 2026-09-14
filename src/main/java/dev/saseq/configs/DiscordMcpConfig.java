@@ -22,6 +22,8 @@ import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import dev.saseq.manager.DiscordBotManager;
+import dev.saseq.services.BotManagementService;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -41,7 +43,8 @@ public class DiscordMcpConfig {
                                              InviteService inviteService,
                                              ChannelPermissionService channelPermissionService,
                                              EmojiService emojiService,
-                                             ForumService forumService) {
+                                             ForumService forumService,
+                                             BotManagementService botManagementService) {
         return MethodToolCallbackProvider.builder().toolObjects(
                 discordService,
                 messageService,
@@ -57,19 +60,13 @@ public class DiscordMcpConfig {
                 inviteService,
                 channelPermissionService,
                 emojiService,
-                forumService
+                forumService,
+                botManagementService
         ).build();
     }
 
     @Bean
-    public JDA jda(@Value("${DISCORD_TOKEN:}") String token) throws InterruptedException {
-        if (token == null || token.isEmpty()) {
-            System.err.println("ERROR: The environment variable DISCORD_TOKEN is not set. Please set it to run the application properly.");
-            System.exit(1);
-        }
-        return JDABuilder.createDefault(token)
-                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.SCHEDULED_EVENTS)
-                .build()
-                .awaitReady();
+    public JDA jda(DiscordBotManager botManager) {
+        return botManager.createRoutingProxy();
     }
 }
