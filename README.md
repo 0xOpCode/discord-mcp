@@ -413,16 +413,13 @@ Remote MCP Connector:
 - [`edit_emoji`](): Edit an existing emoji's name or role restrictions
 - [`delete_emoji`](): Permanently delete a custom emoji from the server
 
-#### Multi-Bot & Multi-Server Fleet Management
-- [`list_bots`](): List all registered Discord bots, their aliases, online statuses, IDs, and connected server counts
-- [`add_bot`](): Connect and add a new Discord bot to the running MCP instance on the fly using its token (zero restart)
-- [`remove_bot`](): Disconnect and unregister a Discord bot by its alias
-- [`list_servers`](): List all Discord servers (Guilds) across all bots (with name, ID, member count, managing bot)
-- [`set_default_bot`](): Change the default bot alias for operations where no specific bot is designated
-- [`send_message_as_bot`](): Send a message to a channel specifically using a designated bot alias
+#### Multi-Server Management
+- [`list_servers`](): List all Discord servers (Guilds) the bot is currently in (with name, ID, member count, and admin status)
+- [`check_bot_permissions`](): Check all granular permissions the bot has in a specific server (Administrator, Manage Roles, Channels, etc.)
+- All 75+ tools accept an optional `guildId` parameter to seamlessly execute actions on any server the bot belongs to.
 
 >If `DISCORD_GUILD_ID` is set, the `guildId` parameter becomes optional for all tools above.
->Smart Routing automatically routes requests to the bot managing the targeted guild or channel!
+
 
 ---
 
